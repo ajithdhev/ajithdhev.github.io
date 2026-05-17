@@ -23,6 +23,9 @@
 <!-- Anti-FOUC: resolve theme before first paint -->
 <script>
 (function () {
+  // Mark JS as available *before* first paint so scroll-reveal only hides
+  // content when JS can bring it back. No-JS / failed-JS visitors see it all.
+  document.documentElement.classList.add("js");
   try {
     var saved = localStorage.getItem("theme");        // "light" | "dark" | "system" | null
     var mode = saved || "system";
@@ -234,6 +237,7 @@
 
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script src="/assets/js/theme.js"></script>
+<script src="/assets/js/reveal.js"></script>
 <script type="module" src="/assets/js/neural.js"></script>
 </body>
 </html>

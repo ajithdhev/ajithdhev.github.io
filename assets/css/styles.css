@@ -214,11 +214,13 @@ h3{font-size:1.12rem;font-weight:650;letter-spacing:-.01em}
   font-family:var(--mono);font-size:13px;color:var(--text-faint);
 }
 
-/* ---- scroll reveal ---- */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* ---- scroll reveal ----
+   Content is hidden ONLY when JS is active (html.js), and revealed on scroll
+   by reveal.js. Without JS — or if a script fails — everything stays visible. */
+html.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+html.js .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
+  html.js .reveal{opacity:1;transform:none;transition:none}
   .scroll-hint::after{animation:none}
 }
 
