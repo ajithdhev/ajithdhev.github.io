@@ -1,0 +1,231 @@
+/* ===========================================================================
+   ajithdhev.com — minimalist, fast, theme-aware (light / dark / system)
+   No web fonts (instant paint). One small stylesheet. Mobile-first.
+   Palette anchored on the intencv near-black (#0B0D11).
+   =========================================================================== */
+
+:root{
+  /* dark is the default; resolved theme is set on <html data-theme> pre-paint */
+  --bg:#0B0D11;
+  --bg-2:#0e1117;
+  --surface:rgba(255,255,255,.035);
+  --border:rgba(255,255,255,.09);
+  --text:#E8EAED;
+  --text-dim:#9aa1ad;
+  --text-faint:#6b7280;
+  --accent:#6EA8FF;
+  --accent-ink:#0B0D11;
+  --net:154,184,255;            /* neural particle RGB */
+  --net-alpha:.55;
+
+  --maxw:920px;
+  --pad:clamp(20px,5vw,40px);
+  --gap:clamp(64px,12vh,128px);
+  --radius:14px;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,
+         "Apple Color Emoji","Segoe UI Emoji",sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+}
+
+html[data-theme="light"]{
+  --bg:#ffffff;
+  --bg-2:#f6f7f9;
+  --surface:rgba(0,0,0,.022);
+  --border:rgba(0,0,0,.11);
+  --text:#0b0d11;
+  --text-dim:#565b66;
+  --text-faint:#8b919d;
+  --accent:#2563eb;
+  --accent-ink:#ffffff;
+  --net:37,99,235;
+  --net-alpha:.40;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:clamp(16px,1.05vw,18px);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+::selection{background:rgba(var(--net),.30)}
+a{color:inherit;text-decoration:none}
+strong{color:var(--text);font-weight:650}
+
+/* ---- 3D neural canvas (behind everything, never blocks input) ---- */
+#neural{
+  position:fixed;inset:0;width:100%;height:100%;
+  z-index:-1;pointer-events:none;display:block;
+  opacity:0;transition:opacity 1.2s ease;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 18%,#000 35%,transparent 78%);
+          mask-image:radial-gradient(120% 90% at 50% 18%,#000 35%,transparent 78%);
+}
+#neural.on{opacity:1}
+
+/* ---- skip link / a11y ---- */
+.skip{
+  position:fixed;left:14px;top:-60px;z-index:50;
+  background:var(--text);color:var(--bg);
+  padding:10px 16px;border-radius:10px;font-size:14px;
+  transition:top .18s ease;
+}
+.skip:focus{top:14px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* ---- top bar ---- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px var(--pad);
+}
+.wordmark{
+  font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.04em;
+}
+.wordmark span{color:var(--accent)}
+
+.theme{
+  display:flex;gap:2px;padding:4px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  backdrop-filter:saturate(140%) blur(8px);
+  -webkit-backdrop-filter:saturate(140%) blur(8px);
+}
+.theme button{
+  width:34px;height:34px;display:grid;place-items:center;
+  background:none;border:0;border-radius:999px;cursor:pointer;color:var(--text-dim);
+  transition:color .15s ease,background .15s ease;
+}
+.theme button:hover{color:var(--text)}
+.theme button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
+.theme svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---- layout ---- */
+main{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.block{padding:var(--gap) 0;border-top:1px solid var(--border)}
+
+/* ---- hero ---- */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);position:relative;
+}
+.eyebrow{
+  font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:22px;
+}
+h1{
+  font-size:clamp(2.8rem,9vw,6.4rem);
+  line-height:.98;letter-spacing:-.03em;font-weight:760;margin-bottom:26px;
+}
+.lede{
+  font-size:clamp(1.05rem,2.2vw,1.4rem);
+  color:var(--text-dim);max-width:36ch;margin-bottom:38px;
+}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:13px 22px;border:1px solid var(--border);border-radius:999px;
+  font-size:15px;font-weight:560;color:var(--text);
+  transition:border-color .15s ease,transform .15s ease,background .15s ease;
+}
+.btn:hover{border-color:var(--text);transform:translateY(-2px)}
+.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn.primary:hover{opacity:.9}
+
+.scroll-hint{
+  position:absolute;bottom:30px;left:var(--pad);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-faint);
+}
+.scroll-hint::after{content:"";display:block;width:1px;height:34px;margin-top:10px;
+  background:linear-gradient(var(--text-faint),transparent);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ---- section primitives ---- */
+.kicker{
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-faint);margin-bottom:18px;
+}
+h2{font-size:clamp(1.7rem,4.2vw,2.6rem);line-height:1.1;letter-spacing:-.02em;
+  font-weight:720;margin-bottom:22px}
+h3{font-size:1.12rem;font-weight:650;letter-spacing:-.01em}
+.prose{color:var(--text-dim);max-width:60ch;font-size:1.05rem}
+
+/* ---- timeline ---- */
+.timeline{list-style:none;display:flex;flex-direction:column;gap:46px}
+.timeline>li{
+  padding-left:24px;border-left:1px solid var(--border);position:relative;
+}
+.timeline>li::before{
+  content:"";position:absolute;left:-4.5px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);
+}
+.t-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:6px 16px;margin-bottom:4px}
+.period{font-family:var(--mono);font-size:13px;color:var(--text-faint);white-space:nowrap}
+.role{color:var(--text-dim);font-size:.97rem;margin-bottom:14px}
+.timeline ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.timeline ul li{
+  color:var(--text-dim);font-size:.99rem;padding-left:18px;position:relative;
+}
+.timeline ul li::before{content:"–";position:absolute;left:0;color:var(--text-faint)}
+
+/* ---- chips ---- */
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.chips li{
+  font-family:var(--mono);font-size:13px;color:var(--text-dim);
+  padding:9px 15px;border:1px solid var(--border);border-radius:999px;
+  background:var(--surface);transition:border-color .15s ease,color .15s ease}
+.chips li:hover{border-color:var(--text);color:var(--text)}
+
+/* ---- card ---- */
+.card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--surface);padding:28px;max-width:520px;
+}
+.card h3{margin-bottom:8px}
+.card p{color:var(--text-dim);font-size:1rem}
+
+/* ---- education ---- */
+.edu{list-style:none;display:flex;flex-direction:column}
+.edu li{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;
+  padding:18px 0;border-bottom:1px solid var(--border);
+}
+.edu li:last-child{border-bottom:0}
+.edu li span:first-child{font-weight:600;flex:1 1 220px}
+.edu li em{color:var(--text-dim);font-style:normal;flex:1 1 240px}
+
+/* ---- contact / footer ---- */
+.contact .prose{margin-bottom:30px}
+.foot{
+  max-width:var(--maxw);margin:0 auto;padding:34px var(--pad) 48px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  border-top:1px solid var(--border);
+  font-family:var(--mono);font-size:13px;color:var(--text-faint);
+}
+
+/* ---- scroll reveal ---- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .scroll-hint::after{animation:none}
+}
+
+/* ---- mobile ---- */
+@media (max-width:560px){
+  .topbar{padding:14px var(--pad)}
+  .t-head{justify-content:flex-start}
+  .scroll-hint{display:none}
+  .btn{padding:12px 18px}
+}
