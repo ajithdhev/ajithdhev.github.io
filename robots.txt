@@ -38,4 +38,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://ajithdhev.github.io/sitemap.xml
+Sitemap: https://ajithdhev.com/sitemap.xml
