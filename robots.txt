@@ -1,4 +1,4 @@
-# Everyone is welcome — including AI / agentic crawlers and answer engines.
+# Everyone is welcome -- including AI / agentic crawlers and answer engines.
 User-agent: *
 Allow: /
 

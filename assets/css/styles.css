@@ -1,5 +1,5 @@
 /* ===========================================================================
-   ajithdhev.com — minimalist, fast, theme-aware (light / dark / system)
+   ajithdhev.com -- minimalist, fast, theme-aware (light / dark / system)
    No web fonts (instant paint). One small stylesheet. Mobile-first.
    Palette anchored on the intencv near-black (#0B0D11).
    =========================================================================== */
@@ -216,7 +216,7 @@ h3{font-size:1.12rem;font-weight:650;letter-spacing:-.01em}
 
 /* ---- scroll reveal ----
    Content is hidden ONLY when JS is active (html.js), and revealed on scroll
-   by reveal.js. Without JS — or if a script fails — everything stays visible. */
+   by reveal.js. Without JS -- or if a script fails -- everything stays visible. */
 html.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 html.js .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){

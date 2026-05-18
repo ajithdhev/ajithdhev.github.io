@@ -1,4 +1,4 @@
-/* Scroll reveal — fades content in as it enters the viewport.
+/* Scroll reveal -- fades content in as it enters the viewport.
    CSS hides `.reveal` only while `html.js` is set, so this script is what
    makes the page visible. Every failure path reveals everything immediately,
    so content is never trapped behind opacity:0. */
@@ -12,7 +12,7 @@
     for (var i = 0; i < els.length; i++) els[i].classList.add("in");
   }
 
-  // Old browser / no IntersectionObserver, or reduced motion — just show it.
+  // Old browser / no IntersectionObserver, or reduced motion -- just show it.
   var reduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced || !("IntersectionObserver" in window)) {
