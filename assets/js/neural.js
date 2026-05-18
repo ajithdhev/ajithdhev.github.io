@@ -1,4 +1,4 @@
-/* 3D neural particle field -- subtle, theme-aware, mobile-safe.
+/* 3D neural particle field - subtle, theme-aware, mobile-safe.
    Loads Three.js from the import map. Every failure path is silent: the page
    is plain static HTML, so the site is fully usable if this never runs. */
 
@@ -20,7 +20,7 @@
   try {
     THREE = await import("three");
   } catch (e) {
-    return; // CDN blocked / offline -- no 3D, no error noise
+    return; // CDN blocked / offline - no 3D, no error noise
   }
 
   var W = window.innerWidth, H = window.innerHeight;
@@ -164,7 +164,7 @@
     if (!reduced) requestAnimationFrame(frame);  // static single frame if reduced-motion
   });
 
-  // pause when the tab is hidden -- saves battery, zero cost when away
+  // pause when the tab is hidden - saves battery, zero cost when away
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) { running = false; }
     else if (!reduced) { running = true; requestAnimationFrame(frame); }

@@ -1,6 +1,6 @@
 # ajithdhev.com
 
-Personal site of **Ajithkumar Dhevarajan** -- AI Product Manager, Toronto.
+Personal site of **Ajithkumar Dhevarajan** - AI Product Manager, Toronto.
 
 Static, dependency-light, no build step. Hosted on GitHub Pages with the
 custom domain `ajithdhev.com`.
